@@ -7,7 +7,8 @@ import math
 #   'DC'   : Direct Communication
 #   'MTE'  : Minimum Transmission Energy
 #   'LEACH': LEACH
-#   'FCM  ': Fuzzy C-Means
+#   'FCM': Fuzzy C-Means
+#   'PSO': Clustering and Routing using PSO
 # and sleep_scheduling may be:
 #   None                 : No sleep scheduling (mind that None is not a string)
 #   'Pso'                : Particle Swarm Optimization
@@ -32,6 +33,7 @@ scenario4 = ('FCM',  'ModifiedPso',      'zero',  'FCMMPSO')
 scenario5 = ('FCM',  'Pso',              'zero',  None)
 scenario6 = ('FCM',  'Ecca',             'zero',  'ECCA')
 scenario7 = ('FCM',  'GeneticAlgorithm', 'zero',  None)
+scenario8 = ('PSO', None, 'zero', 'MY_PSO')
 scenario31 = ('FCM',   None,              'zero',  'BS at (125,125)')
 scenario32 = ('FCM',   None,              'zero',  'BS at (65,65)')
 scenario33 = ('FCM',   None,              'zero',  'BS at (0,0)')
@@ -68,11 +70,12 @@ scenarios = [
     #              scenario1,
     #              scenario2,
     #              scenario3,
-    scenario4,
+    # scenario4,
     #              "cf.FITNESS_ALPHA=0.34",
     #              "cf.FITNESS_BETA=0.33",
     #              "cf.FITNESS_GAMMA=0.33",
-    scenario6,
+    # scenario6,
+    scenario8,
     #              scenario6,
     #              #'cf.BS_POS_X=65.0',
     #              #'cf.BS_POS_Y=65.0',
@@ -149,6 +152,7 @@ MSG_LENGTH = 4000  # bits
 HEADER_LENGTH = 150  # bits
 # initial energy at every node's battery
 INITIAL_ENERGY = 0.02  # Joules
+INITIAL_ENERGY_GATEWAY = 0.06
 
 
 # Energy Configurations
@@ -166,7 +170,7 @@ THRESHOLD_DIST = math.sqrt(E_FS/E_MP)  # meters
 
 
 # Routing configurations:
-NB_CLUSTERS = 10
+NB_CLUSTERS = 20
 # FCM fuzzyness coeficient
 FUZZY_M = 2
 

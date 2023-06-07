@@ -7,7 +7,7 @@ from distutils.core import setup, Extension
 import os
 
 # this project uses c++11 codes
-os.environ["CC"] = "g++ -std=c++11"
+os.environ["CC"] = "g++ -std=c++20"
 
 swig_opts = ['-shadow', '-c++']
 source_path = 'cc/'
@@ -43,11 +43,27 @@ ecca = Extension('cc._ecca',
                                 build_path+'optimizer.o'],
                  swig_opts=swig_opts)
 
+Cluster_pso = Extension('cc.clrt._Cluster_Pso',
+                        sources=[source_path+'clrt/'+'Cluster_Pso.cc',
+                                 source_path+'clrt/'+'individual.cc',
+                                 source_path+'clrt/'+'optimizer.cc',
+                                 source_path+'clrt/'+'Cluster_Pso.i'],
+                        swig_opts=swig_opts)
+
+Routing_pso = Extension('cc.clrt._Routing_Pso',
+                        sources=[source_path+'clrt/'+'Routing_Pso.cc',
+                                 source_path+'clrt/'+'individual.cc',
+                                 source_path+'clrt/'+'optimizer.cc',
+                                 source_path+'clrt/'+'Routing_Pso.i'],
+                        swig_opts=swig_opts)
+
 # compile C++ libraries
 setup(name='Optimizers',
       version='1.0',
-      author="Jean Da Rolt",
+      author="Dhiraj Sharma",
       description="""C++ wrappers for performance optimization.""",
-      ext_modules=[modified_pso, genetic_algorithm, pso, ecca],
-      py_modules=["modified_pso", "genetic_algorithm", "pso", "ecca"],
+      ext_modules=[modified_pso, genetic_algorithm,
+                   pso, ecca, Cluster_pso, Routing_pso],
+      py_modules=["modified_pso", "genetic_algorithm",
+                  "pso", "ecca", "Cluster_Pso", "Routing_Pso"],
       )

@@ -320,3 +320,13 @@ class Network(list):
     def update_sleep_prob(self):
         for node in self.get_alive_nodes():
             node.update_sleep_prob()
+
+#This methods are defined for PSO clusterig and routing
+    def get_alive_gateway(self):
+        return [node for node in self if node.is_gateway and node.alive]
+
+    def get_alive_sensor(self):
+        return [node for node in self[cf.NB_CLUSTERS:-1] if node.alive]
+
+    def get_nogateway_sensor(self):
+        return [node for node in self[cf.NB_CLUSTERS:-1] if node.alive and not node.head_assigned]

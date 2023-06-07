@@ -1,25 +1,28 @@
 import config as cf
 import logging
 
-class EnergySource(object):
-  def __init__(self, parent):
-    self.energy = cf.INITIAL_ENERGY
-    self.node = parent
 
-  def recharge(self):
-    self.energy = cf.INITIAL_ENERGY
+class EnergySource(object):
+    def __init__(self, parent):
+        self.energy = cf.INITIAL_ENERGY
+        self.node = parent
+
+    def recharge(self):
+        self.energy = cf.INITIAL_ENERGY_GATEWAY_
+
 
 class Battery(EnergySource):
-  def consume(self, energy):
-    if self.energy >= energy:
-      self.energy -= energy
-    else:
-      logging.info("node %d: battery is depleted." % (self.node.id))
-      self.energy = 0
+    def consume(self, energy):
+        if self.energy >= energy:
+            self.energy -= energy
+        else:
+            logging.info("node %d: battery is depleted." % (self.node.id))
+            self.energy = 0
 
-      self.node.battery_depletion()
+            self.node.battery_depletion()
+    def gateway(self):
+        self.energy = cf.INITIAL_ENERGY_GATEWAY
 
 class PluggedIn(EnergySource):
-  def consume(self, energy):
-    pass
-
+    def consume(self, energy):
+        pass
